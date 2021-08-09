@@ -1,3 +1,9 @@
 <?php
-// SETTINGS
+// Your username
 $user = 'kdy';
+
+// Links on the top-right part of the pages
+$customLinks = array(
+  'AniList Profile' => 'https://anilist.co/user/' . $user .'/',
+  'aniSched' => '/aniSched/'
+);

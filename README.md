@@ -19,6 +19,7 @@
 - Pull nodejs deps for our base CSS (`yarn` or `npm i`)
 - Copy `config.php.dist` to `config.php` and edit it
   - Set `$user` to your username (the one we find in your profile URL)
+  - Update the `$customLinks` array to your liking
 - Open `/index.php` in your browser to see the results
 - You can launch `php fetch.php` in CLI to force a refresh under 12 hours
 - Add a cron to run `fetch.php` regularly maybe
