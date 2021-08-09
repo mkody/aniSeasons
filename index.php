@@ -55,7 +55,6 @@ foreach ($data as $season => $shows) {
             $a->media->title->english ? $a->media->title->english : $a->media->title->romaji,
             $b->media->title->english ? $b->media->title->english : $b->media->title->romaji
         ));
-
 ?>
         <h3 id="<?= str_replace(' ', '-', $season) ?>"><?= $season ?> <small>(<?= count($shows) ?> entries)</small></h3>
 <?php

@@ -26,6 +26,6 @@
 
 ## Notes
 
-- The current code will expect tags in the exact same format (and in English) as listed in the prerequistes, so it doesn't get confused with any other custom lists you might creat
+- The current code will expect tags in the exact same format (and in English) as listed in the prerequistes, so it doesn't get confused with any other custom lists you might create
 - It will loop from 2020 Winter to and including 2030 Fall
 - Data fetched from AniList is saved in `shows.json`, have fun doing what you want with it
