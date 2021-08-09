@@ -1,0 +1,28 @@
+query($userName: String) {
+  MediaListCollection(userName: $userName, type: ANIME) {
+    lists {
+      name
+      isCustomList
+      entries {
+        id
+        status
+        media {
+          id
+          title {
+            romaji
+            english
+          }
+          coverImage {
+            large
+            color
+          }
+          format
+          episodes
+          duration
+          season
+          seasonYear
+        }
+      }
+    }
+  }
+}
