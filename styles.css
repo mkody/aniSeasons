@@ -44,6 +44,11 @@ a:hover {
     padding: 0 1em;
 }
 
+.custom-links span:not(:last-child)::after {
+    content: '·';
+    padding: 0 0.3rem;
+}
+
 .show-list {
     display: grid;
     grid-gap: 10px;

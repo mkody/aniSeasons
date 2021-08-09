@@ -1,6 +1,18 @@
 <?php
-    // This enables a JS smooth scroll to the set ID on load
-    $curr = '2021-Summer';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/funcs.php';
+
+// This enables a JS smooth scroll to the set ID on load
+// @TODO Make this automatic
+$curr = '2021-Summer';
+
+if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
+    // refresh old shows.json after 12 hours
+    require_once  __DIR__ . '/fetch.php';
+    $data = $o;
+} else {
+    $data = json_decode(file_get_contents(__DIR__ . '/shows.json'));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,74 +33,14 @@
         <section class="navbar-center">
             <h1>aniSeasons</h1>
         </section>
-        <section class="navbar-section">
-            <a href="/aniSched">aniSched</a>
+        <section class="navbar-section custom-links">
+<?php foreach($customLinks as $title => $href) { ?>
+            <span><a href="<?= $href ?>"><?= $title ?></a></span>
+<?php } ?>
         </section>
     </header>
     <div class="container">
 <?php
-if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
-    // refresh old shows.json after 12 hours
-    require_once  __DIR__ . '/fetch.php';
-    $data = $o;
-} else {
-    $data = json_decode(file_get_contents(__DIR__ . '/shows.json'));
-}
-
-
-function _duration($minutes) {
-    if ($minutes < 60) return $minutes . ' minute' . ($minutes > 1 ? 's' : '');
-    $h = floor($minutes / 60);
-    $m = ($minutes % 60);
-    return $h . ' hour' . ($h > 1 ? 's' : '') . ($m != 0 ? ' ' . $m . ' minute' . ($m > 1 ? 's' : '') : '');
-}
-
-function _showCounts($media) {
-    if ($media->format == "MOVIE") {
-        // Don't try to count a number of episodes
-        if ($media->duration) return _duration($media->duration);
-    } else if ($media->episodes == 1 && $media->duration) {
-        // If there's only one episode, show only duration
-        return _duration($media->duration);
-    } else if ($media->episodes && $media->duration) {
-        // Complete data: number of episodes and duration each
-        return $media->episodes . 'x' . _duration($media->duration);
-    } else if ($media->episodes) {
-        // Sometimes we don't know the duration but we have the number of episodes
-        return $media->episodes . ' episode' . ($media->episodes > 1 ? 's' : '');
-    } else if ($media->duration) {
-        // Sometimes we don't know how many episodes we get but we have the duration
-        return '?x' . _duration($media->duration);
-    }
-    // If there's nothing matching yet, then we just leave the line empty
-    return '<!-- TBD -->';
-}
-
-function _countMovies($shows) {
-    // Go through our list and return the number of movies
-    $i = 0;
-    foreach($shows as $show) {
-      if ($show->media->format == 'MOVIE') $i++;
-    }
-    return $i;
-}
-function _countCurrent($shows, $season) {
-    // Go through our list and return the number of shows in season
-    $i = 0;
-    foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
-    }
-    return $i;
-}
-function _countOldies($shows, $season) {
-    // Go through our list and return the number of shows out of season
-    $i = 0;
-    foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
-    }
-    return $i;
-}
-
 // Loop on our seasons
 foreach ($data as $season => $shows) {
     $movies = _countMovies($shows);
