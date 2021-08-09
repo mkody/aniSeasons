@@ -28,6 +28,33 @@ function graphql($host, $query, $variables) {
     return json_decode($response);
 }
 
+function _countMovies($shows) {
+    // Go through our list and return the number of movies
+    $i = 0;
+    foreach($shows as $show) {
+      if ($show->media->format == 'MOVIE') $i++;
+    }
+    return $i;
+}
+
+function _countCurrent($shows, $season) {
+    // Go through our list and return the number of shows in season
+    $i = 0;
+    foreach ($shows as $show) {
+      if ($show->media->format != 'MOVIE' && strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
+    }
+    return $i;
+}
+
+function _countOldies($shows, $season) {
+    // Go through our list and return the number of shows out of season
+    $i = 0;
+    foreach ($shows as $show) {
+      if ($show->media->format != 'MOVIE' && strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
+    }
+    return $i;
+}
+
 function _duration($minutes) {
     if ($minutes < 60) return $minutes . ' minute' . ($minutes > 1 ? 's' : '');
     $h = floor($minutes / 60);
@@ -56,28 +83,17 @@ function _showCounts($media) {
     return '<!-- TBD -->';
 }
 
-function _countMovies($shows) {
-    // Go through our list and return the number of movies
-    $i = 0;
-    foreach($shows as $show) {
-      if ($show->media->format == 'MOVIE') $i++;
-    }
-    return $i;
+function _showCard($show) {
+?>
+            <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
+               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?>">
+                <div class="show-card status-<?= $show->status ?>">
+                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $show->media->coverImage->large ?>);">&nbsp;</div>
+                    <div class="show-details">
+                        <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
+                        <small><?= _showCounts($show->media) ?></small>
+                    </div>
+                </div>
+            </a>
+<?php
 }
-function _countCurrent($shows, $season) {
-    // Go through our list and return the number of shows in season
-    $i = 0;
-    foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
-    }
-    return $i;
-}
-function _countOldies($shows, $season) {
-    // Go through our list and return the number of shows out of season
-    $i = 0;
-    foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
-    }
-    return $i;
-}
-

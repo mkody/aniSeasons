@@ -43,11 +43,13 @@ if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
 <?php
 // Loop on our seasons
 foreach ($data as $season => $shows) {
-    $movies = _countMovies($shows);
-    $current = _countCurrent($shows, $season);
-    $oldies = _countOldies($shows, $season);
     // Don't show empty lists
     if ($shows && count($shows) > 0) {
+        // Count entries
+        $current = _countCurrent($shows, $season);
+        $oldies = _countOldies($shows, $season);
+        $movies = _countMovies($shows);
+
         // Sort entries by title
         usort($shows, fn($a, $b) => strcmp(
             $a->media->title->english ? $a->media->title->english : $a->media->title->romaji,
@@ -66,19 +68,8 @@ foreach ($data as $season => $shows) {
             // Loop on our non-movie entries relasing this season
             foreach ($shows as $show) {
                 if ($show->media->format == 'MOVIE') continue;
-                if (strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) continue
-?>
-            <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
-               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?>">
-                <div class="show-card status-<?= $show->status ?>">
-                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $show->media->coverImage->large ?>);">&nbsp;</div>
-                    <div class="show-details">
-                        <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
-                        <small><?= _showCounts($show->media) ?></small>
-                    </div>
-                </div>
-            </a>
-<?php
+                if (strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) continue;
+                _showCard($show);
             }
 ?>
         </div>
@@ -94,19 +85,8 @@ foreach ($data as $season => $shows) {
             // Loop on our non-movie entries out of season
             foreach ($shows as $show) {
                 if ($show->media->format == 'MOVIE') continue;
-                if (strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) continue
-?>
-            <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
-               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?>">
-                <div class="show-card status-<?= $show->status ?>">
-                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $show->media->coverImage->large ?>);">&nbsp;</div>
-                    <div class="show-details">
-                        <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
-                        <small><?= _showCounts($show->media) ?></small>
-                    </div>
-                </div>
-            </a>
-<?php
+                if (strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) continue;
+                _showCard($show);
             }
 ?>
         </div>
@@ -122,18 +102,7 @@ foreach ($data as $season => $shows) {
             // Loop on our movie entries
             foreach ($shows as $show) {
                 if ($show->media->format != 'MOVIE') continue;
-?>
-            <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
-               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?>">
-                <div class="show-card status-<?= $show->status ?>">
-                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $show->media->coverImage->large ?>);">&nbsp;</div>
-                    <div class="show-details">
-                        <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
-                        <small><?= _showCounts($show->media) ?></small>
-                    </div>
-                </div>
-            </a>
-<?php
+                _showCard($show);
             }
 ?>
         </div>
