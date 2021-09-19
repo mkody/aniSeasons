@@ -7,3 +7,7 @@ $customLinks = array(
   'AniList Profile' => 'https://anilist.co/user/' . $user .'/',
   'aniSched' => '/aniSched/'
 );
+
+// Prefix for cover URLs (ie. for thumbor and caching)
+// $prefixImg = 'https://thumbor.your-domain.com/unsafe/150x210/';
+$prefixImg = '';
