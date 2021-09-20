@@ -89,6 +89,10 @@ a:hover {
     background: rgba(185, 110, 0, 0.8);
 }
 
+.status-REPEATING .show-details {
+    background: rgba(206, 77, 121, 0.8);
+}
+
 .status-COMPLETED {
     opacity: 0.5;
 }
