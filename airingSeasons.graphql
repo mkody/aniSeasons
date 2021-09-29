@@ -1,0 +1,12 @@
+query ($now: Int) {
+  Page(page: 1) {
+    airingSchedules(airingAt_greater: $now, sort: [TIME]) {
+     media {
+        season
+        seasonInt
+        seasonYear
+      }
+    }
+  }
+}
+
