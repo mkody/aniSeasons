@@ -3,8 +3,29 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/funcs.php';
 
 // This enables a JS smooth scroll to the set ID on load
-// @TODO Make this automatic
-$curr = '2021-Summer';
+$curr = date('Y');
+switch(date('n')) {
+    case 1:
+    case 2:
+    case 3:
+        $curr .= '-Winter';
+        break;
+    case 4:
+    case 5:
+    case 6:
+        $curr .= '-Spring';
+        break;
+    case 7:
+    case 8:
+    case 9:
+        $curr .= '-Summer';
+        break;
+    case 10:
+    case 11:
+    case 12:
+        $curr .= '-Fall';
+        break;
+}
 
 if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
     // refresh old shows.json after 12 hours
