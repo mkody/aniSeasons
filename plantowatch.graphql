@@ -1,0 +1,35 @@
+query($page: Int, $userName: String) {
+  Page(page: $page) {
+    pageInfo {
+      hasNextPage
+      total
+    }
+    mediaList(userName: $userName, type: ANIME, sort: MEDIA_ID) {
+      id
+      status
+      customLists
+      hiddenFromStatusLists
+      media {
+        id
+        status
+        title {
+          romaji
+          english
+        }
+        format
+        season
+        seasonYear
+        relations {
+          edges {
+            id 
+            relationType
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
