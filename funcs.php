@@ -87,7 +87,7 @@ function _showCard($show) {
     global $prefixImg;
 ?>
             <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
-               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?>">
+               title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?> (<?= $show->status  ?>)">
                 <div class="show-card status-<?= $show->status ?>">
                     <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $prefixImg . $show->media->coverImage->large ?>);">&nbsp;</div>
                     <div class="show-details">
