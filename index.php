@@ -2,9 +2,6 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/funcs.php';
 
-// This enables a JS smooth scroll to the set ID on load
-$curr = file_get_contents(__DIR__ . '/currentSeason.txt');
-
 if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
     // refresh old shows.json after 12 hours
     require_once  __DIR__ . '/fetch.php';
@@ -111,6 +108,19 @@ foreach ($data as $season => $shows) {
 ?>
     </div>
     <script>
+<?php
+  // This enables a JS smooth scroll to the current season on load
+  $currMonth = date('n');
+  if ($currMonth <= 3) {
+    $curr = date('Y') . '-Winter';
+  } else if ($currMonth <= 6) {
+    $curr = date('Y') . '-Spring';
+  } else if ($currMonth <= 9) {
+    $curr = date('Y') . '-Summer';
+  } else {
+    $curr = date('Y') . '-Fall';
+  }
+?>
       const oT = document.getElementById('<?= $curr ?>').offsetTop
       scroll({
         top: oT,

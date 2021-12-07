@@ -9,7 +9,7 @@ if (PHP_SAPI !== 'cli' || isset($_SERVER['HTTP_USER_AGENT'])) {
 
     // Create list of seasons
     $lists = [];
-    foreach (range(2020, 2030) as $year) {
+    foreach (range(2020, 2050) as $year) {
         $lists[] = $year . ' Winter';
         $lists[] = $year . ' Spring';
         $lists[] = $year . ' Summer';
