@@ -4,11 +4,11 @@
 
 - Have an AniList account
 - Make [custom lists](https://anilist.co/settings/lists) in the `YYYY Season` format, ie:
-  - `2020 Winter`
-  - `2020 Spring`
-  - `2020 Summer`
-  - `2020 Fall`
-  - `2021 Winter`
+  - `2022 Winter`
+  - `2022 Spring`
+  - `2022 Summer`
+  - `2022 Fall`
+  - `2023 Winter`
   - etc.
 - Put your anime in those custom lists to when you expect to watch them
 
@@ -27,5 +27,5 @@
 ## Notes
 
 - The current code will expect tags in the exact same format (and in English) as listed in the prerequistes, so it doesn't get confused with any other custom lists you might create
-- It will loop from 2020 Winter to and including 2030 Fall
+- It will loop from 2010 Winter to and including 2050 Fall
 - Data fetched from AniList is saved in `shows.json`, have fun doing what you want with it

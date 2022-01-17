@@ -2,7 +2,7 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 if (PHP_SAPI !== 'cli' || isset($_SERVER['HTTP_USER_AGENT'])) {
-   $shows = json_decode(file_get_contents(__DIR__ . '/unplanned.json'));
+    $shows = json_decode(file_get_contents(__DIR__ . '/unplanned.json'));
 } else {
     require_once __DIR__ . '/funcs.php';
     require_once __DIR__ . '/config.php';
@@ -37,11 +37,10 @@ if (PHP_SAPI !== 'cli' || isset($_SERVER['HTTP_USER_AGENT'])) {
         $hasNextPage = $response->data->Page->pageInfo->hasNextPage;
         $wL = $response->data->Page->mediaList;
         foreach($wL as $s) {
-            // Ignore movies, if they haven't been released yet,
-            // if they're not into planning
-            // or if they're hidden from your status lists
-            if ($s->media->format == 'MOVIE' ||
-                $s->media->status == 'NOT_YET_RELEASED' ||
+            // Ignore if the entry didn't released yet,
+            // if it's not into planning,
+            // or if it's hidden from your status lists
+            if ($s->media->status == 'NOT_YET_RELEASED' ||
                 $s->status != 'PLANNING' ||
                 $s->hiddenFromStatusLists == true) continue;
 

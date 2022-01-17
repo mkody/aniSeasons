@@ -23,7 +23,7 @@ if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
 </head>
 <body>
     <header class="navbar">
-        <section class="navbar-section">
+        <section class="navbar-section hide-md">
             <!-- Left for alignment -->
         </section>
         <section class="navbar-center">
@@ -109,23 +109,23 @@ foreach ($data as $season => $shows) {
     </div>
     <script>
 <?php
-  // This enables a JS smooth scroll to the current season on load
-  $currMonth = date('n');
-  if ($currMonth <= 3) {
-    $curr = date('Y') . '-Winter';
-  } else if ($currMonth <= 6) {
-    $curr = date('Y') . '-Spring';
-  } else if ($currMonth <= 9) {
-    $curr = date('Y') . '-Summer';
-  } else {
-    $curr = date('Y') . '-Fall';
-  }
+    // This enables a JS smooth scroll to the current season on load
+    $currMonth = date('n');
+    if ($currMonth <= 3) {
+        $curr = date('Y') . '-Winter';
+    } else if ($currMonth <= 6) {
+        $curr = date('Y') . '-Spring';
+    } else if ($currMonth <= 9) {
+        $curr = date('Y') . '-Summer';
+    } else {
+        $curr = date('Y') . '-Fall';
+    }
 ?>
-      const oT = document.getElementById('<?= $curr ?>').offsetTop
-      scroll({
-        top: oT,
-        behavior: 'smooth'
-      })
+        const oT = document.getElementById('<?= $curr ?>').offsetTop
+        scroll({
+            top: oT,
+            behavior: 'smooth'
+        })
     </script>
 </body>
 </html>

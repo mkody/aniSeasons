@@ -32,7 +32,7 @@ function _countMovies($shows) {
     // Go through our list and return the number of movies
     $i = 0;
     foreach($shows as $show) {
-      if ($show->media->format == 'MOVIE') $i++;
+        if ($show->media->format == 'MOVIE') $i++;
     }
     return $i;
 }
@@ -41,7 +41,7 @@ function _countCurrent($shows, $season) {
     // Go through our list and return the number of shows in season
     $i = 0;
     foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
+        if ($show->media->format != 'MOVIE' && strtoupper($season) == (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
     }
     return $i;
 }
@@ -50,7 +50,7 @@ function _countOldies($shows, $season) {
     // Go through our list and return the number of shows out of season
     $i = 0;
     foreach ($shows as $show) {
-      if ($show->media->format != 'MOVIE' && strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
+        if ($show->media->format != 'MOVIE' && strtoupper($season) != (string)$show->media->seasonYear . ' ' . $show->media->season) $i++;
     }
     return $i;
 }
