@@ -33,7 +33,9 @@ foreach ($response->data->MediaListCollection->lists as $l) {
 // Re-order
 $o = [];
 foreach ($lists as $l) {
-    $o[$l] = $j[$l];
+    if (array_key_exists($l, $j)) {
+        $o[$l] = $j[$l];
+    }
 }
 
 // Save everything
