@@ -31,8 +31,8 @@ if (PHP_SAPI !== 'cli' || isset($_SERVER['HTTP_USER_AGENT'])) {
         ];
 
         sleep(2); // Go easy on their server
-        $response = graphql('https://graphql.anilist.co', $query, json_encode($variables), $accessToken);
-        if ($response->errors) echo json_encode($response, JSON_PRETTY_PRINT);
+        $response = graphql('https://graphql.anilist.co', $query, json_encode($variables));
+        if (property_exists($response, 'errors')) echo json_encode($response, JSON_PRETTY_PRINT);
 
         $hasNextPage = $response->data->Page->pageInfo->hasNextPage;
         $wL = $response->data->Page->mediaList;
