@@ -77,6 +77,17 @@ if (PHP_SAPI !== 'cli' || isset($_SERVER['HTTP_USER_AGENT'])) {
     <div class="container">
         <ol>
 <?php
+// Sort by year and season
+function sm ($s) {
+    if ($s === 'Winter') return 1;
+    if ($s === 'Spring') return 2;
+    if ($s === 'Summer') return 3;
+    if ($s === 'Fall') return 4;
+}
+usort($shows, function ($a, $b) {
+    return strcmp($a->seasonYear . sm($a->season), $b->seasonYear . sm($b->season));
+});
+
 foreach($shows as $show) {
     // Get English title with fallback to romaji
     $title = $show->title->english ? $show->title->english : $show->title->romaji;
