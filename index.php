@@ -2,8 +2,8 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/funcs.php';
 
-if (time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
-    // refresh old shows.json after 12 hours
+if (!file_exists(__DIR__ . '/shows.json') || time() - filemtime(__DIR__ . '/shows.json') > 12 * 3600) {
+    // create shows.json if it doesn't exists or refresh after 12 hours
     require_once  __DIR__ . '/fetch.php';
     $data = $o;
 } else {
