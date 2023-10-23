@@ -26,7 +26,10 @@ $response = graphql('https://graphql.anilist.co', $query, json_encode($variables
 
 foreach ($response->data->MediaListCollection->lists as $l) {
     if (in_array($l->name, $lists)) {
-        $j[$l->name] = $l->entries;
+        foreach($l->entries as $entry) {
+            $entry->media->coverImage->large = _signImage($entry->media->coverImage->large);
+            $j[$l->name][] = $entry;
+        }
     }
 }
 

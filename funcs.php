@@ -28,6 +28,22 @@ function graphql($host, $query, $variables) {
     return json_decode($response);
 }
 
+function _signImage($url) {
+    global $imgPrefixBase, $imgPrefixSecret;
+    $transform = '150x210/filters:format(jpeg)/';
+
+    if ($imgPrefixSecret) {
+        $hash = hash_hmac('sha1', $transform . $url, $imgPrefixSecret, true);
+        $bHash = str_replace('+', '-', str_replace('/', '_', base64_encode($hash)));
+
+        return $imgPrefixBase . $bHash . '/' . $transform . $url;
+    } else if ($imgPrefixBase) {
+        return $imgPrefixBase . 'unsafe/' . $transform . $url;
+    } else {
+        return $url;
+    }
+}
+
 function _countMovies($shows) {
     // Go through our list and return the number of movies
     $i = 0;
@@ -84,12 +100,11 @@ function _showCounts($media) {
 }
 
 function _showCard($show) {
-    global $prefixImg;
 ?>
             <a target="_blank" rel="noreferrer noopener" href="https://anilist.co/anime/<?= $show->media->id ?>"
                title="<?= str_replace('"', '\'', $show->media->title->romaji ? $show->media->title->romaji : $show->media->title->english) ?> (<?= $show->status  ?>)">
                 <div class="show-card status-<?= $show->status ?>">
-                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url(<?= $prefixImg . $show->media->coverImage->large ?>);">&nbsp;</div>
+                    <div class="show-cover" style="background-color: <?= $show->media->coverImage->color ?>; background-image: url('<?= $show->media->coverImage->large ?>');">&nbsp;</div>
                     <div class="show-details">
                         <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
                         <small><?= _showCounts($show->media) ?></small>
