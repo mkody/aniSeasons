@@ -108,6 +108,7 @@ function _showCard($show) {
                     <div class="show-details">
                         <?= $show->media->title->english ? $show->media->title->english : $show->media->title->romaji ?><br/>
                         <small><?= _showCounts($show->media) ?></small>
+                        <span style="display: none;">[<?= $show->status ?>]</span>
                     </div>
                 </div>
             </a>
