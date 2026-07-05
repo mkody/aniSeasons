@@ -56,8 +56,13 @@ foreach ($data as $season => $shows) {
 <?php
         // We check if there are previous shows
         if ($current > 0) {
+          // Only display the title if there are others
+          if ($oldies > 0 || $movies > 0) {
 ?>
         <h4>&gt; <?= $current ?> current season</h4>
+<?php
+          }
+?>
         <div class="show-list">
 <?php
             // Loop on our non-movie entries relasing this season
@@ -73,8 +78,13 @@ foreach ($data as $season => $shows) {
 
         // We check if there are previous shows
         if ($oldies > 0) {
+          // Only display the title if there are others
+          if ($current > 0 || $movies > 0) {
 ?>
         <h4>&gt; <?= $oldies ?> previous seasons or ongoing</h4>
+<?php
+          }
+?>
         <div class="show-list">
 <?php
             // Loop on our non-movie entries out of season
@@ -90,8 +100,13 @@ foreach ($data as $season => $shows) {
 
         // We check if there are any movie in that list before
         if ($movies > 0) {
+          // Only display the title if there are others
+          if ($current > 0 || $oldies > 0) {
 ?>
         <h4>&gt; <?= $movies ?> Movies</h4>
+<?php
+          }
+?>
         <div class="show-list">
 <?php
             // Loop on our movie entries
