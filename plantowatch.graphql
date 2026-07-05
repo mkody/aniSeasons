@@ -1,4 +1,4 @@
-query($page: Int, $userName: String) {
+query ($page: Int, $userName: String) {
   Page(page: $page) {
     pageInfo {
       hasNextPage
@@ -21,7 +21,7 @@ query($page: Int, $userName: String) {
         seasonYear
         relations {
           edges {
-            id 
+            id
             relationType
             node {
               id
@@ -32,4 +32,3 @@ query($page: Int, $userName: String) {
     }
   }
 }
-

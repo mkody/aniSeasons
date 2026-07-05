@@ -1,4 +1,4 @@
-query($userName: String) {
+query ($userName: String) {
   MediaListCollection(userName: $userName, type: ANIME) {
     lists {
       name

@@ -5,10 +5,15 @@ $user = 'kdy';
 // Links on the top-right part of the pages
 $customLinks = array(
   'AniList Profile' => 'https://anilist.co/user/' . $user .'/',
-  'aniSched' => '/aniSched/'
+  'aniSched' => '/aniSched/',
 );
 
 // Prefix for cover URLs with thumbor/imagor (with trailing slash)
 //$imgPrefixBase = 'https://thumbor.your-domain.com/';
 // And the hash (otherwise, it will use `unsafe`)
 //$imgPrefixSecret = 'myS3cre7';
+
+// A simple array of additional lists to display after the seasonal ones.
+$additionalLists = [
+  // 'Sequels to watch',
+];

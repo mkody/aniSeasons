@@ -14,6 +14,11 @@ foreach (range(2010, 2050) as $year) {
     $lists[] = $year . ' Fall';
 }
 
+// Merge the additional lists into our list of seasons
+if (isset($additionalLists) && is_array($additionalLists)) {
+  $lists = array_merge($lists, $additionalLists);
+}
+
 // Create object where our data is saved
 $j = [];
 
